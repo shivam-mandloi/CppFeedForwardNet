@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include<assert.h>
+
 #include "numpy.hpp"
 
 
@@ -15,7 +17,6 @@ public:
         {
             if(str[i] == ' ')
             {
-                // std::cout << temp << std::endl;
                 if(temp != " " && temp != "")
                     arr.push_back(std::stod(temp));
                 temp = "";
@@ -26,5 +27,22 @@ public:
         if(temp != "" && temp != " ")
             arr.push_back(std::stod(temp));
         return arr;
-    } 
+    }
+
+    numpy<double> MatVecMul(numpy<double> vec, numpy<numpy<double>> mul)
+    {
+        assert(vec.size() == mul.size());
+        numpy<double> res;
+        for(int i = 0; i < mul[0].size(); i++)
+        {
+            double temp = 0;
+            for(int j = 0; j < mul.size(); j++)
+            {
+                temp += (mul[j][i] * vec[j]);
+            }
+
+            res.push_back(temp);
+        }
+        return res;
+    }
 };

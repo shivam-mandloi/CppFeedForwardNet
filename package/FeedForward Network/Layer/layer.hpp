@@ -7,10 +7,16 @@
 #include "HelpingFunction.hpp"
 #include "ActivationFunction.hpp"
 
+
+/*          size
+    Weight: m X n
+    Bias:   n
+    input:  m
+*/
 class layer
 {
 public:
-    layer(std::string weightTxt, std::string biasTxt, std::string activationType)
+    layer(std::string weightTxt, std::string biasTxt, FunctionType activationType = RELU)
     {
         LoadTxtWeightAndBias(weightTxt, biasTxt);
         activationFunction.AddActivationFunction(activationType);
@@ -18,7 +24,7 @@ public:
 
     numpy<double> ForwardPropagation(numpy<double> input)
     {
-
+        return activationFunction.Evaluate(hf.MatVecMul(input, weight) + bias);
     }
 
     void BackPropagation()
@@ -41,7 +47,7 @@ private:
             if(temp != "")
                 weight.push_back(hf.SplitString(temp));
         }
-        std::cout << weight.size() << " X " << weight[0].size() << std::endl;
+        // std::cout << weight.size() << " X " << weight[0].size() << std::endl; ////////////////
 
         newFile.close();
         newFile.open(biasTxt, std::ios::in);
@@ -54,7 +60,7 @@ private:
             if(temp != "")
                 bias.push_back(std::stod(temp));
         }
-        std::cout << bias.size() << std::endl;
+        // std::cout << bias.size() << std::endl; ///////////////////
     }
     numpy<numpy<double>> weight;
     numpy<double> bias;

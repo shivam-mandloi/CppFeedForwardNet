@@ -5,18 +5,19 @@
 #include <iostream>
 #include <math.h>
 
+
 /*
 Usage:
     numpy<LONG> np2 = {1,2,3};
     numpy<LONG> np1 = {2,3,4};
-    std::cout << (np1 * np2) << std::endl;
+    print << (np1 * np2) << end;
     LONG var = 2;
     np1 =  np1 * var;
     np1 = np1 + np2;
-    std::cout << np1 << std::endl;
-    std::cout << (np2 - np1) << std::endl;
-    std::cout << (np1 * -1) << std::endl;
-    std::cout << "Norm " << np1.norm() << std::endl;
+    print << np1 << end;
+    print << (np2 - np1) << end;
+    print << (np1 * -1) << end;
+    print << "Norm " << np1.norm() << end;
 */
 
 template <typename T>
@@ -100,7 +101,7 @@ public:
 };
 
 template <typename T>
-std::ostream& operator<<(std::ostream &os, const numpy<T> &npy)
+std::ostream &operator<<(std::ostream &os, const numpy<T> &npy)
 {
     try
     {

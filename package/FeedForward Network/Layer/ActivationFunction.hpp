@@ -17,6 +17,12 @@ class Relu
 public:
     numpy<double> Evaluate(numpy<double> npArr)
     {
+        for(int i = 0; i < npArr.size(); i++)
+        {
+            if(npArr[i] < 0)
+                npArr[i] = 0;
+        }
+        return npArr;
     }
 
     numpy<double> Derivative(numpy<double> npArr)
@@ -63,16 +69,9 @@ public:
 class ActivationFunction
 {
 public:
-    void AddActivationFunction(std::string type)
+    void AddActivationFunction(FunctionType type)
     {
-        if (type == "relu")
-            fType = RELU;
-        else if (type == "tanh")
-            fType = tanH;
-        else if (type == "sigmoid")
-            fType = sigmoid;
-        else if (type == "softmax")
-            fType = softmax;
+        fType = type;
     }
     
     numpy<double> Evaluate(numpy<double> npArr)

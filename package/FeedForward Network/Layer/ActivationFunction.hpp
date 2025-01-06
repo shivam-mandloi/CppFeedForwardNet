@@ -9,7 +9,8 @@ enum FunctionType
     RELU,
     tanH,
     sigmoid,
-    softmax
+    softmax,
+    NoActivation
 };
 
 class Relu
@@ -25,8 +26,14 @@ public:
         return npArr;
     }
 
-    numpy<double> Derivative(numpy<double> npArr)
+    numpy<double> Derivative(numpy<double> npArr, numpy<double> lossDerivative)
     {
+        for(int i = 0; i < npArr.size(); i++)
+        {
+            if(npArr[i] < 0)
+                lossDerivative[i] = 0;
+        }
+        return lossDerivative;
     }
 };
 
@@ -84,18 +91,20 @@ public:
             return sg.Evaluate(npArr);
         if(fType == softmax)
             return sfMax.Evaluate(npArr);
+        return npArr;
     }
 
-    numpy<double> Derivative(numpy<double> npArr)
+    numpy<double> Derivative(numpy<double> npArr, numpy<double> derivative)
     {
         if(fType == RELU)
-            return relu.Derivative(npArr);
+            return relu.Derivative(npArr, derivative);
         if(fType == tanH)
             return tan.Derivative(npArr);
         if(fType == sigmoid)
             return sg.Derivative(npArr);
         if(fType == softmax)
             return sfMax.Derivative(npArr);
+        return derivative;
     }
 
 private:

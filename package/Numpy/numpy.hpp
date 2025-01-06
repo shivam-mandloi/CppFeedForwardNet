@@ -49,6 +49,15 @@ public:
         return *this;
     }
 
+    numpy operator*(const double var)
+    {
+        for (int i = 0; i < this->size(); i++)
+        {
+            (*this)[i] *= var;
+        }
+        return *this;
+    }
+
     numpy operator+(const numpy npy)
     {
         if (npy.size() != this->size())

@@ -45,4 +45,34 @@ public:
         }
         return res;
     }
+
+    numpy<numpy<double>> FindWeightChange(numpy<double> derivative, numpy<double> input)
+    {
+        numpy<numpy<double>> res;
+        for(int i = 0; i < input.size(); i++)
+        {
+            numpy<double> temp;
+            for(int j = 0; j < derivative.size(); j++)
+            {
+                temp.push_back(derivative[j] * input[i]);
+            }
+            res.push_back(temp);
+        }
+        return res;
+    }
+
+    numpy<double> FindNextDerivative(numpy<double> derivative, numpy<numpy<double>> weight)
+    {
+        numpy<double> arr;
+        for(int i = 0; i < weight.size(); i++)
+        {
+            double sum = 0;
+            for(int j = 0; j < weight[i].size(); j++)
+            {
+                sum += (derivative[j] * weight[i][j]);
+            }
+            arr.push_back(sum);
+        }
+        return arr;
+    }
 };
